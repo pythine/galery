@@ -454,14 +454,47 @@ function heart(){
   fHearts.appendChild(el);
   setTimeout(()=>el.remove(),9000);
 }
-const musiku=document.getElementById('musiku');
-function playMusik() {
-  musiku.play();
-  document.removeEventListener('click', playMusik);
-  document.removeEventListener('touchstart', playMusik);
+
+
+// --- TAMBAHAN MUSIK FIX ---
+const musiku = document.getElementById('musiku');
+musiku.volume = 1;
+
+function cobaPlayMusik() {
+  const p = musiku.play();
+  if(p){
+    p.then(()=> {
+      console.log("MUSIK NYALA ❤️");
+      const btn = document.getElementById('btnMusikManual');
+      if(btn) btn.style.display='none';
+    }).catch(e=>{
+      console.log("Autoplay di block, butuh klik lagi", e);
+      // munculin tombol manual
+      const btn = document.getElementById('btnMusikManual');
+      if(btn) btn.style.display='flex';
+    });
+  }
 }
-document.addEventListener('click', playMusik);
-document.addEventListener('touchstart', playMusik);
+
+// Play pas klik dimana aja (backup)
+document.addEventListener('click', cobaPlayMusik, {once:false});
+document.addEventListener('touchstart', cobaPlayMusik, {once:false});
+
+// Play khusus pas klik tombol masuk
+const oldUnlock = unlock;
+unlock = function(){
+  if(pass.value.trim().toLowerCase()===PASSWORD.toLowerCase()){
+    cobaPlayMusik(); // <--- NYALAIN DI SINI
+    oldUnlock();
+  } else {
+    oldUnlock();
+  }
+}
+
+// Cek kalau file musik ga ada
+musiku.addEventListener('error', ()=>{
+  alert('File musiky.mp3 tidak ditemukan di Vercel! Cek nama file');
+});
 </script>
 
 </body>
