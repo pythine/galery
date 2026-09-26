@@ -153,8 +153,8 @@ img {box-shadow:0 0 35px yellow;}
    Ganti dua nilai di bawah dengan data dari Supabase:
    Project Settings -> API
 */
-const SUPABASE_URL = "https://qbgwxsrwbhwevcafcwkz.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_4BAmXQmzJcwUUm-n0pMR1Q_olF0qaKZ";
+const SUPABASE_URL = "PASTE_PROJECT_URL_DI_SINI";
+const SUPABASE_PUBLISHABLE_KEY = "PASTE_PUBLISHABLE_KEY_DI_SINI";
 const SUPABASE_BUCKET = "galery";
 
 const supabaseClient = window.supabase.createClient(
@@ -390,7 +390,37 @@ async function loadUploadedPhotos(){
       badge.className='badge';
       badge.textContent='tersimpan ❤️';
 
-      card.append(img,badge);
+      const del=document.createElement('button');
+      del.className='user-delete';
+      del.textContent='🗑️';
+      del.title='Hapus foto';
+
+      del.onclick=async(e)=>{
+        e.stopPropagation();
+
+        if(!confirm('Hapus foto ini secara permanen?')) return;
+
+        del.disabled=true;
+        del.textContent='⏳';
+
+        try{
+          const {error}=await supabaseClient.storage
+            .from(SUPABASE_BUCKET)
+            .remove([path]);
+
+          if(error) throw error;
+
+          showToast('Foto dihapus 🗑️');
+          await loadUploadedPhotos();
+        }catch(err){
+          console.error('Supabase delete error:',err);
+          showToast('Gagal menghapus: '+(err.message||'Hapus gagal'));
+          del.disabled=false;
+          del.textContent='🗑️';
+        }
+      };
+
+      card.append(img,badge,del);
       box.appendChild(card);
     });
   }catch(e){
