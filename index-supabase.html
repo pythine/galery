@@ -53,6 +53,7 @@ img {box-shadow:0 0 35px yellow;}
 .upload-item img{width:100%;height:100%;object-fit:cover;box-shadow:none}
 .delete-upload{position:absolute;right:7px;top:7px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(0,0,0,.65);color:#fff;cursor:pointer;font-size:15px}
 .user-photo-card{cursor:default}
+.supabase-note{margin-top:10px;text-align:center;font-size:9px;opacity:.55;line-height:1.5}
 
 
 .uploaded-grid{margin-top:18px}
@@ -126,11 +127,12 @@ img {box-shadow:0 0 35px yellow;}
 
   <div class="upload-panel">
     <div class="upload-title">📸 Tambahkan Foto Kenangan</div>
-    <div class="upload-sub">Foto yang dipilih akan tampil di galeri. Tekan Simpan untuk mengirimnya ke folder server.</div>
+    <div class="upload-sub">Foto yang dipilih akan tampil di galeri. Tekan Simpan untuk menyimpannya ke Supabase.</div>
     <label class="upload-label" for="photoInput">＋ Pilih Foto</label>
     <input id="photoInput" type="file" accept="image/*" multiple hidden>
     <div id="uploadPreview" class="upload-preview"></div>
     <button class="save-upload" id="saveUpload">💾 Simpan Foto</button>
+    <div class="supabase-note">Penyimpanan foto menggunakan Supabase Storage.</div>
   </div>
 
   <div class="progress" id="prog"></div>
@@ -145,7 +147,21 @@ img {box-shadow:0 0 35px yellow;}
             <source src="lagu.mp3" type="audio/mpeg">
         </audio>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+/* ================= SUPABASE =================
+   Ganti dua nilai di bawah dengan data dari Supabase:
+   Project Settings -> API
+*/
+const SUPABASE_URL = "https://qbgwxsrwbhwevcafcwkz.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_4BAmXQmzJcwUUm-n0pMR1Q_olF0qaKZ";
+const SUPABASE_BUCKET = "galery";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
 const PASSWORD = "sayang";
 const login=document.getElementById('login');
 const pass=document.getElementById('pass');
@@ -230,7 +246,7 @@ function setupUpload(){
   const save=document.getElementById('saveUpload');
 
   input.addEventListener('change',()=>{
-    selectedFiles=[...input.files];
+    selectedFiles=[...input.files].filter(file=>file.type.startsWith('image/'));
     renderPreview();
   });
 
@@ -240,17 +256,35 @@ function setupUpload(){
       return;
     }
 
-    const formData=new FormData();
-    selectedFiles.forEach(file=>formData.append('photos',file));
+    if(
+      SUPABASE_URL.includes('PASTE_') ||
+      SUPABASE_PUBLISHABLE_KEY.includes('PASTE_')
+    ){
+      showToast('Isi SUPABASE_URL dan PUBLISHABLE_KEY dulu');
+      return;
+    }
 
     save.disabled=true;
     save.textContent='⏳ Menyimpan...';
 
     try{
-      const res=await fetch('/api/upload',{method:'POST',body:formData});
-      const data=await res.json();
+      for(const file of selectedFiles){
+        const safeName=file.name
+          .toLowerCase()
+          .replace(/[^a-z0-9._-]+/g,'-');
 
-      if(!res.ok) throw new Error(data.message||'Upload gagal');
+        const filePath=`uploads/${Date.now()}-${crypto.randomUUID()}-${safeName}`;
+
+        const {error:uploadError}=await supabaseClient.storage
+          .from(SUPABASE_BUCKET)
+          .upload(filePath,file,{
+            cacheControl:'3600',
+            upsert:false,
+            contentType:file.type
+          });
+
+        if(uploadError) throw uploadError;
+      }
 
       showToast('Foto berhasil disimpan ❤️');
       selectedFiles=[];
@@ -258,13 +292,13 @@ function setupUpload(){
       preview.innerHTML='';
       await loadUploadedPhotos();
     }catch(err){
-      showToast('Gagal: '+err.message);
+      console.error('Supabase upload error:',err);
+      showToast('Gagal: '+(err.message||'Upload gagal'));
     }finally{
       save.disabled=false;
       save.textContent='💾 Simpan Foto';
     }
   });
-
 }
 
 function renderPreview(){
@@ -277,6 +311,7 @@ function renderPreview(){
 
     const img=document.createElement('img');
     img.src=URL.createObjectURL(file);
+    img.onload=()=>URL.revokeObjectURL(img.src);
 
     const del=document.createElement('button');
     del.className='delete-upload';
@@ -294,10 +329,21 @@ function renderPreview(){
 
 async function loadUploadedPhotos(){
   try{
-    const res=await fetch('/api/photos',{cache:'no-store'});
-    if(!res.ok) return;
+    if(
+      SUPABASE_URL.includes('PASTE_') ||
+      SUPABASE_PUBLISHABLE_KEY.includes('PASTE_')
+    ) return;
 
-    const photos=await res.json();
+    const {data:files,error}=await supabaseClient.storage
+      .from(SUPABASE_BUCKET)
+      .list('uploads',{
+        limit:100,
+        offset:0,
+        sortBy:{column:'created_at',order:'desc'}
+      });
+
+    if(error) throw error;
+
     const room=document.getElementById('r5');
 
     let title=room.querySelector('.saved-title');
@@ -316,14 +362,27 @@ async function loadUploadedPhotos(){
     }
 
     box.innerHTML='';
-    title.textContent=photos.length ? '📸 Foto yang sudah disimpan ❤️' : '';
+
+    const photos=(files||[]).filter(file=>
+      file.name &&
+      /\.(jpg|jpeg|png|webp|gif|bmp|avif)$/i.test(file.name)
+    );
+
+    title.textContent=photos.length
+      ? '📸 Foto yang sudah disimpan ❤️'
+      : '';
 
     photos.forEach(photo=>{
       const card=document.createElement('div');
       card.className='card user-photo-card';
 
+      const path=`uploads/${photo.name}`;
+      const {data:urlData}=supabaseClient.storage
+        .from(SUPABASE_BUCKET)
+        .getPublicUrl(path);
+
       const img=document.createElement('img');
-      img.src=photo.url;
+      img.src=urlData.publicUrl;
       img.alt='Foto yang sudah disimpan';
       img.loading='lazy';
 
@@ -331,38 +390,11 @@ async function loadUploadedPhotos(){
       badge.className='badge';
       badge.textContent='tersimpan ❤️';
 
-      const del=document.createElement('button');
-      del.className='user-delete';
-      del.textContent='🗑️';
-      del.title='Hapus foto';
-
-      del.onclick=async(e)=>{
-        e.stopPropagation();
-        if(!confirm('Hapus foto ini secara permanen dari folder uploads?')) return;
-
-        try{
-          const r=await fetch('/api/delete/'+encodeURIComponent(photo.name),{
-            method:'DELETE',
-            headers:{'X-Admin-Password':prompt('Masukkan password admin untuk menghapus foto:')||''}
-          });
-
-          if(!r.ok){
-            const data=await r.json().catch(()=>({}));
-            throw new Error(data.message||'Gagal menghapus');
-          }
-
-          showToast('Foto dihapus 🗑️');
-          loadUploadedPhotos();
-        }catch(err){
-          showToast(err.message);
-        }
-      };
-
-      card.append(img,badge,del);
+      card.append(img,badge);
       box.appendChild(card);
     });
   }catch(e){
-    console.log('Belum bisa mengambil foto tersimpan:',e);
+    console.error('Belum bisa mengambil foto tersimpan:',e);
   }
 }
 
