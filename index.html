@@ -29,7 +29,7 @@ body{min-height:100vh;background:#0f0510;font-family:'Poppins',sans-serif;overfl
 .f-heart{position:absolute;animation:floatUp linear forwards;filter:drop-shadow(0 0 8px #ff6b9d)}
 @keyframes floatUp{0%{transform:translateY(110vh);opacity:0}10%{opacity:1}100%{transform:translateY(-15vh) translateX(40px) rotate(160deg) scale(1.4);opacity:0}}
 .progress{margin-top:20px;display:flex;gap:6px;justify-content:center}.dot{width:24px;height:4px;border-radius:999px;background:rgba(255,255,255,.15);transition:.3s;cursor:pointer}.dot.active{background:#fff;width:34px;box-shadow:0 0 10px #ff6b9d}
-.login{position:fixed;inset:0;z-index:100;background:radial-gradient(1200px 800px at 50% -10%,#4a1f3a 0%,#1a0a18 45%,#0a040a 100%);display:flex;align-items:center;justify-content:center;padding:20px;transition:.6s}
+.login{position:fixed;inset:0;z-index:100;background:radial-gradient(1200px 800px at 50% -10%,#4a1f3a 0%,#1a0a18 45%,#0a040a 100%);display:flex;align-items:center;justify-content:center;padding:20px;box-shadow:0 0 35px yellow;transition:.6s}
 .login.hide{opacity:0;pointer-events:none;transform:scale(1.06);filter:blur(12px)}
 .login-box{width:100%;max-width:320px;padding:28px 22px;border-radius:28px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(20px);text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .input{width:100%;padding:15px 18px;border-radius:999px;border:1px solid rgba(255,179,209,.5);background:rgba(0,0,0,.3);color:#fff;outline:none;text-align:center;letter-spacing:2px}
@@ -71,7 +71,7 @@ img {box-shadow:0 0 35px yellow;}
 
 <div class="login" id="login">
   <div class="login-box">
-    <div style="font-size:36px">🔒</div>
+    <div style="font-size:36px;text-shadow:2px 2px 4px yellow;">🔒</div>
     <div style="margin:10px 0 16px;opacity:.7;font-size:13px">masukkan password</div>
     <input type="password" id="pass" class="input" placeholder="••••••">
     <button class="login-btn" id="loginBtn">masuk ❤️</button>
@@ -126,7 +126,7 @@ img {box-shadow:0 0 35px yellow;}
 
 
   <div class="upload-panel">
-    <div class="upload-title">📸 Tambahkan Foto Kenangan</div>
+    <div class="upload-title" style="text-shadow:2px 2px 4px aqua;">📸 Tambahkan Foto Kenangan</div>
     <div class="upload-sub">Foto yang dipilih akan tampil di galeri. Tekan Simpan untuk menyimpannya di halaman 5</div>
     <label class="upload-label" for="photoInput">＋ Pilih Foto</label>
     <input id="photoInput" type="file" accept="image/*" multiple hidden>
