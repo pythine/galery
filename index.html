@@ -143,7 +143,7 @@ img {box-shadow:0 0 35px yellow;}
   <button class="btn" id="nextBtn">lanjut ❤️ →</button>
 </div>
 
-<audio autoplay loop>
+<audio id="musiku" loop>
             <source src="musiky.mp3" type="audio/mpeg">
         </audio>
 
@@ -454,6 +454,14 @@ function heart(){
   fHearts.appendChild(el);
   setTimeout(()=>el.remove(),9000);
 }
+const musiku=document.getElementById('musiku');
+function playMusik() {
+  musiku.play();
+  document.removeEventListener('click', playMusik);
+  document.removeEventListener('touchstart', playMusik);
+}
+document.addEventListener('click', playMusik);
+document.addEventListener('touchstart', playMusik);
 </script>
 
 </body>
