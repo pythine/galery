@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;background:#0f0510;font-family:'Poppins',sans-serif;overflow-x:hidden;color:#fff}
+.bg{position:fixed;inset:0;z-index:-3;background:radial-gradient(1200px 800px at 50% -10%,#4a1f3a 0%,#1a0a18 45%,#0a040a 100%)}
+.stars{position:fixed;inset:0;z-index:-2;background-image:radial-gradient(2px 2px at 20% 30%,#fff,transparent),radial-gradient(1px 1px at 80% 20%,#ffb3d1,transparent);opacity:.4}
+.container{max-width:440px;margin:0 auto;padding:24px 16px 120px;position:relative;z-index:1}
+.title{text-align:center;font-size:38px;letter-spacing:2px;text-shadow:0 0 20px #ff3b7a,0 0 40px #ff6b9d;animation:beat 2s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.room{display:none}.room.active{display:block;animation:in .7s ease}
+@keyframes in{from{opacity:0;transform:translateY(24px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.card{position:relative;aspect-ratio:3/4.2;border-radius:26px;overflow:hidden;background:#221222;box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.08),0 0 26px rgba(255,59,122,.2);cursor:pointer;transition:.3s}
+.card:active{transform:scale(.96)}
+.card img{width:100%;height:100%;object-fit:cover;animation:zoom 12s infinite alternate}
+.card:nth-child(even) img{animation-direction:alternate-reverse}
+@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.15)}}
+.badge{position:absolute;bottom:8px;right:8px;z-index:2;padding:4px 8px;border-radius:999px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);font-size:9px;border:1px solid rgba(255,255,255,.2)}
+.btn-wrap{position:fixed;bottom:0;left:0;right:0;padding:18px 16px 26px;z-index:10;background:linear-gradient(to top,rgba(15,5,16,.95) 40%,transparent 100%);display:flex;justify-content:center;gap:10px}
+.btn{flex:1;max-width:215px;padding:16px 18px;border-radius:999px;border:1px solid rgba(255,179,209,.6);background:radial-gradient(120% 120% at 30% 20%,rgba(255,107,157,.35),rgba(255,255,255,.06));backdrop-filter:blur(14px);color:#fff;font-size:14px;display:flex;justify-content:center;align-items:center;gap:6px;cursor:pointer;box-shadow:0 8px 24px rgba(255,59,122,.35);transition:.2s}
+.btn:active{transform:scale(.96)}
+.btn.back{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);box-shadow:none}
+.f-hearts{position:fixed;inset:0;pointer-events:none;z-index:50}
+.f-heart{position:absolute;animation:floatUp linear forwards;filter:drop-shadow(0 0 8px #ff6b9d)}
+@keyframes floatUp{0%{transform:translateY(110vh);opacity:0}10%{opacity:1}100%{transform:translateY(-15vh) translateX(40px) rotate(160deg) scale(1.4);opacity:0}}
+.progress{margin-top:20px;display:flex;gap:6px;justify-content:center}.dot{width:24px;height:4px;border-radius:999px;background:rgba(255,255,255,.15);transition:.3s;cursor:pointer}.dot.active{background:#fff;width:34px;box-shadow:0 0 10px #ff6b9d}
+.login{position:fixed;inset:0;z-index:100;background:radial-gradient(1200px 800px at 50% -10%,#4a1f3a 0%,#1a0a18 45%,#0a040a 100%);display:flex;align-items:center;justify-content:center;padding:20px;transition:.6s}
+.login.hide{opacity:0;pointer-events:none;transform:scale(1.06);filter:blur(12px)}
+.login-box{width:100%;max-width:320px;padding:28px 22px;border-radius:28px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(20px);text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.input{width:100%;padding:15px 18px;border-radius:999px;border:1px solid rgba(255,179,209,.5);background:rgba(0,0,0,.3);color:#fff;outline:none;text-align:center;letter-spacing:2px}
+.input.wrong{animation:shake .4s ease;border-color:#ff3b3b}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.login-btn{margin-top:12px;width:100%;padding:14px;border-radius:999px;border:none;background:linear-gradient(135deg,#ff6b9d,#ff3b7a);color:#fff;cursor:pointer}
+.video-box{margin-top:18px;border-radius:26px;overflow:hidden;background:#000;box-shadow:0 15px 40px rgba(0,0,0,.6),0 0 35px rgba(255,59,122,.25)}
+.video-box video{width:100%;display:block}
+.toast{position:fixed;bottom:95px;left:50%;transform:translateX(-50%);z-index:200;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.12);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2);font-size:11px;opacity:0;transition:.3s;pointer-events:none}
+.toast.show{opacity:1;bottom:105px}
+img:hover {transform: scale(1.05); transition: transform 1.1s ease-in-out;}
+img {box-shadow:0 0 35px yellow;}
+
+.upload-panel{margin:24px 0 8px;padding:18px;border-radius:24px;background:rgba(255,255,255,.07);border:1px solid rgba(255,179,209,.25);box-shadow:0 10px 35px rgba(0,0,0,.35)}
+.upload-title{text-align:center;font-size:17px;font-weight:bold}
+.upload-sub{text-align:center;font-size:10px;opacity:.7;margin:7px 0 14px;line-height:1.5}
+.upload-label,.save-upload{display:flex;justify-content:center;align-items:center;width:100%;padding:13px;border-radius:999px;cursor:pointer;color:#fff;border:1px solid rgba(255,179,209,.55);background:linear-gradient(135deg,rgba(255,107,157,.45),rgba(255,59,122,.2));box-shadow:0 8px 20px rgba(255,59,122,.18)}
+.save-upload{margin-top:10px;border:0}
+.upload-preview{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.upload-item{position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:#160b16;border:1px solid rgba(255,255,255,.12)}
+.upload-item img{width:100%;height:100%;object-fit:cover;box-shadow:none}
+.delete-upload{position:absolute;right:7px;top:7px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(0,0,0,.65);color:#fff;cursor:pointer;font-size:15px}
+.user-photo-card{cursor:default}
+
+
+.uploaded-grid{margin-top:18px}
+.uploaded-grid .card{aspect-ratio:3/4.2}
+.uploaded-grid .card img{width:100%;height:100%;object-fit:cover;animation:zoom 12s infinite alternate}
+.uploaded-grid .user-delete{position:absolute;right:8px;top:8px;z-index:5;width:32px;height:32px;border:0;border-radius:50%;background:rgba(0,0,0,.65);color:#fff;cursor:pointer}
+.saved-title{text-align:center;margin:18px 0 4px;font-size:13px;opacity:.8}
+
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="stars"></div>
+<div class="f-hearts" id="fHearts"></div>
+<div class="toast" id="toast">tersimpan ❤️</div>
+
+<div class="login" id="login">
+  <div class="login-box">
+    <div style="font-size:36px">🔒</div>
+    <div style="margin:10px 0 16px;opacity:.7;font-size:13px">masukkan password</div>
+    <input type="password" id="pass" class="input" placeholder="••••••">
+    <button class="login-btn" id="loginBtn">masuk ❤️</button>
+  </div>
+</div>
+
+<div class="container" id="main" style="display:none">
+  <div class="title" style="text-shadow:2px 2px 4px yellow;">Galery❤️Memory</div>
+
+  <div class="room active" id="r1"><div class="grid">
+    <div class="card"><img src="ph1 (1).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">sederhana,tapi bermakna</span></div>
+    <div class="card"><img src="ph1 (2).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">bahagia bukan derita</span></div>
+    <div class="card"><img src="ph1 (3).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">kecil saja</span></div>
+    <div class="card"><img src="los (9).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">tapi besar di doa</span></div>
+  </div></div>
+
+  <div class="room" id="r2"><div class="grid">
+    <div class="card"><img src="ph1 (5).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">sabar bukan musuh</span></div>
+    <div class="card"><img src="ph1 (6).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">tapi tanda kekuatan</span></div>
+    <div class="card"><img src="ph1 (7).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">sehat selalu yaa</span></div>
+    <div class="card"><img src="ph1 (8).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">walaupun aku sudah gak di sampingmu</span></div>
+  </div></div>
+
+  <div class="room" id="r3"><div class="grid">
+    <div class="card"><img src="pot (1).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">hehee</span></div>
+    <div class="card"><img src="pot (2).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">jangan liattt</span></div>
+    <div class="card"><img src="pot (3).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">ih udah dibilag jangan lihat</span></div>
+    <div class="card"><img src="ph1 (9).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">nah ini gapapa</span></div>
+  </div></div>
+
+  <div class="room" id="r4"><div class="grid">
+    <div class="card"><img src="los (1).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">yahh boleh bangett yaa</span></div>
+    <div class="card"><img src="los (2).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">tutup mataaa</span></div>
+    <div class="card"><img src="los (3).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">kan udah dibilagin suruh tutup mataa</span></div>
+    <div class="card"><img src="los (4).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">nah ini gapapa,Cantikk</span></div>
+  </div></div>
+
+  <div class="room" id="r5"><div class="grid">
+    <div class="card"><img src="los (5).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Kangenn</span></div>
+    <div class="card"><img src="los (6).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">husttttt</span></div>
+    <div class="card"><img src="los (7).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">nah bolehh kok</span></div>
+    <div class="card"><img src="los (8).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Tutup mataa!!!!</span></div>
+  </div>
+  <div class="look">
+    <p style="text-align:center;color:white;border:2px solid none;border-radius:15px;background:linear-gradient(45deg,aqua,red,aqua);text-shadow:2px 2px 4px yellow;box-shadow:0 0 35px white;">Ruangan Khusus Yang Aku Buat Untuk Kamu</p>
+  </div>
+
+    <div class="video-box">
+      <video controls playsinline poster="foto1.jpg"><source src="video.mp4" type="video/mp4"></video>
+    </div>
+  </div>
+
+
+  <div class="upload-panel">
+    <div class="upload-title">📸 Tambahkan Foto Kenangan</div>
+    <div class="upload-sub">Foto yang dipilih akan tampil di galeri. Tekan Simpan untuk mengirimnya ke folder server.</div>
+    <label class="upload-label" for="photoInput">＋ Pilih Foto</label>
+    <input id="photoInput" type="file" accept="image/*" multiple hidden>
+    <div id="uploadPreview" class="upload-preview"></div>
+    <button class="save-upload" id="saveUpload">💾 Simpan Foto</button>
+  </div>
+
+  <div class="progress" id="prog"></div>
+</div>
+
+<div class="btn-wrap" id="btnWrap" style="display:none">
+  <button class="btn back" id="backBtn">← kembali</button>
+  <button class="btn" id="nextBtn">lanjut ❤️ →</button>
+</div>
+
+<audio autoplay loop>
+            <source src="lagu.mp3" type="audio/mpeg">
+        </audio>
+
+<script>
+const PASSWORD = "sayang";
+const login=document.getElementById('login');
+const pass=document.getElementById('pass');
+const main=document.getElementById('main');
+const btnWrap=document.getElementById('btnWrap');
+const fHearts=document.getElementById('fHearts');
+const toast=document.getElementById('toast');
+
+function showToast(msg){
+  toast.textContent=msg;
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),1800);
+}
+
+function unlock(){
+  if(pass.value.trim().toLowerCase()===PASSWORD.toLowerCase()){
+    login.classList.add('hide');
+    setTimeout(()=>{
+      login.style.display='none';
+      main.style.display='block';
+      btnWrap.style.display='flex';
+      start();
+    },500);
+  }else{
+    pass.classList.add('wrong');
+    setTimeout(()=>pass.classList.remove('wrong'),400);
+    pass.value="";
+  }
+}
+document.getElementById('loginBtn').onclick=unlock;
+pass.onkeydown=e=>{if(e.key==='Enter')unlock();};
+
+let cur=1,total=5,started=false;
+let selectedFiles=[];
+
+function start(){
+  if(started)return;
+  started=true;
+  build();
+  setInterval(heart,300);
+  setupUpload();
+  loadUploadedPhotos();
+  setupNavigation();
+  setupDownloadButtons();
+}
+
+function setupDownloadButtons(){
+  document.querySelectorAll('.card img').forEach(img=>{
+    img.addEventListener('click',()=>{
+      const src=img.getAttribute('src');
+      if(!src)return;
+      const name=src.split('/').pop();
+      const a=document.createElement('a');
+      a.href=src;
+      a.download=name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast(name+' tersimpan ❤️');
+    });
+  });
+}
+
+function setupNavigation(){
+  document.getElementById('nextBtn').onclick=()=>{
+    document.getElementById('r'+cur).classList.remove('active');
+    cur++; if(cur>total)cur=1;
+    document.getElementById('r'+cur).classList.add('active');
+    build(); window.scrollTo({top:0,behavior:'smooth'});
+  };
+  document.getElementById('backBtn').onclick=()=>{
+    document.getElementById('r'+cur).classList.remove('active');
+    cur--; if(cur<1)cur=total;
+    document.getElementById('r'+cur).classList.add('active');
+    build(); window.scrollTo({top:0,behavior:'smooth'});
+  };
+}
+
+function setupUpload(){
+  const input=document.getElementById('photoInput');
+  const preview=document.getElementById('uploadPreview');
+  const save=document.getElementById('saveUpload');
+
+  input.addEventListener('change',()=>{
+    selectedFiles=[...input.files];
+    renderPreview();
+  });
+
+  save.addEventListener('click',async()=>{
+    if(!selectedFiles.length){
+      showToast('Pilih foto dulu 📸');
+      return;
+    }
+
+    const formData=new FormData();
+    selectedFiles.forEach(file=>formData.append('photos',file));
+
+    save.disabled=true;
+    save.textContent='⏳ Menyimpan...';
+
+    try{
+      const res=await fetch('/api/upload',{method:'POST',body:formData});
+      const data=await res.json();
+
+      if(!res.ok) throw new Error(data.message||'Upload gagal');
+
+      showToast('Foto berhasil disimpan ❤️');
+      selectedFiles=[];
+      input.value='';
+      preview.innerHTML='';
+      await loadUploadedPhotos();
+    }catch(err){
+      showToast('Gagal: '+err.message);
+    }finally{
+      save.disabled=false;
+      save.textContent='💾 Simpan Foto';
+    }
+  });
+
+}
+
+function renderPreview(){
+  const preview=document.getElementById('uploadPreview');
+  preview.innerHTML='';
+
+  selectedFiles.forEach((file,index)=>{
+    const item=document.createElement('div');
+    item.className='upload-item';
+
+    const img=document.createElement('img');
+    img.src=URL.createObjectURL(file);
+
+    const del=document.createElement('button');
+    del.className='delete-upload';
+    del.textContent='🗑️';
+    del.title='Hapus dari pilihan';
+    del.onclick=()=>{
+      selectedFiles.splice(index,1);
+      renderPreview();
+    };
+
+    item.append(img,del);
+    preview.appendChild(item);
+  });
+}
+
+async function loadUploadedPhotos(){
+  try{
+    const res=await fetch('/api/photos',{cache:'no-store'});
+    if(!res.ok) return;
+
+    const photos=await res.json();
+    const room=document.getElementById('r5');
+
+    let title=room.querySelector('.saved-title');
+    let box=room.querySelector('.uploaded-grid');
+
+    if(!title){
+      title=document.createElement('div');
+      title.className='saved-title';
+      room.insertBefore(title,room.querySelector('.look'));
+    }
+
+    if(!box){
+      box=document.createElement('div');
+      box.className='grid uploaded-grid';
+      room.insertBefore(box,room.querySelector('.look'));
+    }
+
+    box.innerHTML='';
+    title.textContent=photos.length ? '📸 Foto yang sudah disimpan ❤️' : '';
+
+    photos.forEach(photo=>{
+      const card=document.createElement('div');
+      card.className='card user-photo-card';
+
+      const img=document.createElement('img');
+      img.src=photo.url;
+      img.alt='Foto yang sudah disimpan';
+      img.loading='lazy';
+
+      const badge=document.createElement('span');
+      badge.className='badge';
+      badge.textContent='tersimpan ❤️';
+
+      const del=document.createElement('button');
+      del.className='user-delete';
+      del.textContent='🗑️';
+      del.title='Hapus foto';
+
+      del.onclick=async(e)=>{
+        e.stopPropagation();
+        if(!confirm('Hapus foto ini secara permanen dari folder uploads?')) return;
+
+        try{
+          const r=await fetch('/api/delete/'+encodeURIComponent(photo.name),{
+            method:'DELETE',
+            headers:{'X-Admin-Password':prompt('Masukkan password admin untuk menghapus foto:')||''}
+          });
+
+          if(!r.ok){
+            const data=await r.json().catch(()=>({}));
+            throw new Error(data.message||'Gagal menghapus');
+          }
+
+          showToast('Foto dihapus 🗑️');
+          loadUploadedPhotos();
+        }catch(err){
+          showToast(err.message);
+        }
+      };
+
+      card.append(img,badge,del);
+      box.appendChild(card);
+    });
+  }catch(e){
+    console.log('Belum bisa mengambil foto tersimpan:',e);
+  }
+}
+
+function build(){
+  const p=document.getElementById('prog');
+  p.innerHTML='';
+  for(let i=1;i<=total;i++){
+    const d=document.createElement('div');
+    d.className='dot'+(i===cur?' active':'');
+    d.onclick=()=>{
+      document.getElementById('r'+cur).classList.remove('active');
+      cur=i;
+      document.getElementById('r'+cur).classList.add('active');
+      build();
+    };
+    p.appendChild(d);
+  }
+}
+
+function heart(){
+  const el=document.createElement('div');
+  el.className='f-heart';
+  el.textContent=['💗','💖','❤️','💕'][Math.floor(Math.random()*4)];
+  el.style.left=Math.random()*100+'vw';
+  el.style.fontSize=(10+Math.random()*18)+'px';
+  el.style.animationDuration=(4+Math.random()*4)+'s';
+  fHearts.appendChild(el);
+  setTimeout(()=>el.remove(),9000);
+}
+</script>
+
+</body>
+</html>
