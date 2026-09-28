@@ -15,7 +15,7 @@ body{min-height:100vh;background:red;font-family:'Poppins',sans-serif;overflow-x
 .room{display:none}.room.active{display:block;animation:in .7s ease}
 @keyframes in{from{opacity:0;transform:translateY(24px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
-.card{position:relative;aspect-ratio:3/4.2;border-radius:26px;overflow:hidden;background:#221222;box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.08),0 0 26px rgba(255,59,122,.2);cursor:pointer;transition:.3s}
+.card{position:relative;aspect-ratio:3/4.2;border-radius:26px;overflow:hidden;background:#221222;box-shadow:0 10 35px yellow;cursor:pointer;transition:.3s}
 .card:active{transform:scale(.96)}
 .card img{width:100%;height:100%;object-fit:cover;animation:zoom 12s infinite alternate}
 .card:nth-child(even) img{animation-direction:alternate-reverse}
@@ -61,6 +61,7 @@ img {box-shadow:0 0 35px yellow;}
 .uploaded-grid .card img{width:100%;height:100%;object-fit:cover;animation:zoom 12s infinite alternate}
 .uploaded-grid .user-delete{position:absolute;right:8px;top:8px;z-index:5;width:32px;height:32px;border:0;border-radius:50%;background:rgba(0,0,0,.65);color:#fff;cursor:pointer}
 .saved-title{text-align:center;margin:18px 0 4px;font-size:13px;opacity:.8}
+button:hover {transform:scaleY(1.05);transition:transform .3s ease-in-out}
 
 </style>
 </head>
@@ -79,44 +80,45 @@ img {box-shadow:0 0 35px yellow;}
 </div>
 
 <div class="container" id="main" style="display:none">
-  <div class="title" style="text-shadow:2px 2px 4px yellow;">Galery❤️Memory</div>
+  <div class="title" style="text-shadow:2px 2px 4px yellow;border:1px solid none;border-radius:25px;background:linear-gradient(45deg,pink,white,pink);box-shadow:0 0 35px yellow;">Galery❤️Memory</div>
+  <div class="boy" style="background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNiXCs_P_-UZeJDWtYC451IvQ_mKIrzLTdheJrYHLq2g&s=10);background-size:cover;background-position:center;margin:18px;padding:30px;border-radius:25px;height:300px;display:inline-block;box-shadow:0 0 35px yellow;"><h1>galery ini untuk mengenang,dan menyimpan kenangan indah bersamamu</h1></div>
 
   <div class="room active" id="r1"><div class="grid">
-    <div class="card"><img src="ph1 (1).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">sederhana,tapi bermakna</span></div>
-    <div class="card"><img src="ph1 (2).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">bahagia bukan derita</span></div>
-    <div class="card"><img src="ph1 (3).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">kecil saja</span></div>
-    <div class="card"><img src="los (9).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">tapi besar di doa</span></div>
+    <div class="card"><img src="ph1 (1).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Semangat terus yah,walaupun kamu lelah</span></div>
+    <div class="card"><img src="ph1 (2).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Selagi masih ada jangan di sia-siakan</span></div>
+    <div class="card"><img src="ph1 (3).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Dunia itu tahu,Kamu kuat,makanya beban ini di berikan ke kamu</span></div>
+    <div class="card"><img src="los (9).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Hehehe</span></div>
   </div></div>
 
   <div class="room" id="r2"><div class="grid">
-    <div class="card"><img src="ph1 (5).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">sabar bukan musuh</span></div>
-    <div class="card"><img src="ph1 (6).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">tapi tanda kekuatan</span></div>
-    <div class="card"><img src="ph1 (7).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">sehat selalu yaa</span></div>
-    <div class="card"><img src="ph1 (8).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">walaupun aku sudah gak di sampingmu</span></div>
+    <div class="card"><img src="ph1 (5).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Teruslah berusaha,Sampai kamu merasakan apa itu arti lelah</span></div>
+    <div class="card"><img src="ph1 (6).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Orang yang paling kuat adalah yang paling banyak menghadapi tantangan</span></div>
+    <div class="card"><img src="ph1 (7).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">sehat selalu yaa,aku selalu di sampingmu,walaupun kamu gak lihat</span></div>
+    <div class="card"><img src="ph1 (8).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Kamu itu hebatt,bisa melangkah sejauh ini</span></div>
   </div></div>
 
   <div class="room" id="r3"><div class="grid">
     <div class="card"><img src="pot (1).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">hehee</span></div>
     <div class="card"><img src="pot (2).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">jangan liattt</span></div>
     <div class="card"><img src="pot (3).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">ih udah dibilag jangan lihat</span></div>
-    <div class="card"><img src="ph1 (9).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">nah ini gapapa</span></div>
+    <div class="card"><img src="ph1 (9).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Waktu yang paling indah adalah waktu dimana aku melihatmu tersenyum</span></div>
   </div></div>
 
   <div class="room" id="r4"><div class="grid">
-    <div class="card"><img src="los (1).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">yahh boleh bangett yaa</span></div>
+    <div class="card"><img src="los (1).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Kamu bagaikan bintang di langit malam,</span></div>
     <div class="card"><img src="los (2).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">tutup mataaa</span></div>
     <div class="card"><img src="los (3).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">kan udah dibilagin suruh tutup mataa</span></div>
-    <div class="card"><img src="los (4).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">nah ini gapapa,Cantikk</span></div>
+    <div class="card"><img src="los (4).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Bintang yang terang akan mengalahkan kegelapan</span></div>
   </div></div>
 
   <div class="room" id="r5"><div class="grid">
-    <div class="card"><img src="los (5).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Kangenn</span></div>
+    <div class="card"><img src="los (5).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Dunia emang baik banget yaa,sampai aku bisa bertemu denganmu</span></div>
     <div class="card"><img src="los (6).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">husttttt</span></div>
-    <div class="card"><img src="los (7).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">nah bolehh kok</span></div>
+    <div class="card"><img src="los (7).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Aku selalu bersyukur karena bisa mengenalmu,dan aku sangat senang pernah menjadi bagian dari hidupmu</span></div>
     <div class="card"><img src="los (8).jpeg"><span class="badge" style="text-shadow:2px 2px 4px yellow;">Tutup mataa!!!!</span></div>
   </div>
   <div class="look">
-    <p style="text-align:center;color:white;border:2px solid none;border-radius:15px;background:linear-gradient(45deg,aqua,red,aqua);text-shadow:2px 2px 4px yellow;box-shadow:0 0 35px white;">Ruangan Khusus Yang Aku Buat Untuk Kamu</p>
+    <p style="text-align:center;color:white;border:2px solid none;border-radius:15px;background:linear-gradient(45deg,pink,aqua,pink);text-shadow:2px 2px 4px yellow;box-shadow:0 0 35px white;">Ruangan Khusus Yang Aku Buat Untuk Kamu</p>
   </div>
 
     <div class="video-box">
